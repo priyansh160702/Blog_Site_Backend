@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/graphql/models';
 import { Repository } from 'typeorm';
+
+import { User } from 'src/graphql/models';
 
 @Injectable()
 export class UsersService {
@@ -10,6 +11,12 @@ export class UsersService {
   constructor(
     // usersRepository: A private property that holds the injected repository, which is used to perform database operations related to the User entity.
 
-    @InjectRepository(User) private usersRepository: Repository<User>,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
+
+  //This will return a Promise and hence will be an Asynchronous function.
+  getUsers() {
+    return this.usersRepository.find();
+  }
 }

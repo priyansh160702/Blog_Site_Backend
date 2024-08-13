@@ -4,8 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { User } from './graphql/models';
-import { UsersModule } from './users';
-
+import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
