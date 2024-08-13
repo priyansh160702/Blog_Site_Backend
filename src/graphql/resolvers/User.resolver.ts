@@ -1,5 +1,5 @@
 import { Args, Int, Query, Resolver } from '@nestjs/graphql';
-import { User } from '../models/User.model';
+import { User } from '../models';
 
 const USER_DATA = [
   {

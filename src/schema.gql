@@ -2,16 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Blog {
+  id: Int!
+  title: String!
+  subTitle: String!
+  category: String!
+  image: String
+  user_id: Int!
+}
+
 type User {
   id: Int!
   name: String!
   profilePhoto: String
   email: String!
   password: String!
-  blogs: [Int!]!
 }
 
 type Query {
   getUserById(id: Int!): User
   getUsers: [User!]!
+  getBlogsByUserId(userId: Int!): [Blog!]
 }

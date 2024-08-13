@@ -17,6 +17,5 @@ export class User {
   @Field()
   password: string;
 
-  @Field((type) => [Int], { defaultValue: [] }) //It will be empty at the start.
-  blogs: number[];
+  //  Removed blogs[] as it is not required.
 }
