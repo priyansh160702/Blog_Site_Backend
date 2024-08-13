@@ -3,7 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
-import { User } from './graphql/models';
+import { User } from './graphql/models/User.model';
 import { UsersModule } from './users/users.module';
 @Module({
   imports: [
