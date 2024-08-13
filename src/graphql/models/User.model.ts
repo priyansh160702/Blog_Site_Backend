@@ -14,7 +14,7 @@ export class User {
   @Field()
   name: string;
 
-  @Column()
+  @Column({ nullable: true }) //For TypeORM
   @Field({ nullable: true })
   profilePhoto?: string; //'?' specifies that it is an optional field. But for graphql, we need ad nullable=true.
 

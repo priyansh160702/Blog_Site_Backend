@@ -108,23 +108,8 @@ export class UsersResolver {
   }
 
   @Mutation((returns) => User)
-
   //   Creates a user in DB.
   createUser(@Args('userData') userData: CreateUserDto) {
-    const { email, password, name, profilePhoto } = userData;
-
-    const newUser = {
-      id: ++incrementalId,
-      email,
-      password,
-      name,
-      profilePhoto,
-    };
-
-    USER_DATA.push(newUser);
-
-    console.log(USER_DATA);
-
-    return newUser;
+    return this.usersService.createUser(userData);
   }
 }

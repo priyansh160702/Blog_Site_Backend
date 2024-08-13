@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { User } from 'src/graphql/models';
+import { CreateUserDto } from 'src/dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -18,5 +19,12 @@ export class UsersService {
   //This will return a Promise and hence will be an Asynchronous function.
   getUsers() {
     return this.usersRepository.find();
+  }
+
+  //   Create User
+  createUser(userData: CreateUserDto) {
+    const newUser = this.usersRepository.create(userData);
+
+    return this.usersRepository.save(newUser);
   }
 }
