@@ -1,4 +1,4 @@
-import { Args, Int, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User } from '../models';
 
 const USER_DATA = [
@@ -84,12 +84,14 @@ const USER_DATA = [
   },
 ];
 
+let incrementalId = 10;
+
 @Resolver()
 export class UserResolver {
   // Returns a User by ID.
   @Query((returns) => User, { nullable: true }) // As it can return a null value when the user is not found.
   getUserById(@Args('id', { type: () => Int }) id: number) {
-    // Int for Graphql and id:number for TypeScript.
+    // "Int" for Graphql and "id:number" for TypeScript.
     return USER_DATA.find((user) => {
       return user.id === id;
     });
@@ -99,5 +101,29 @@ export class UserResolver {
   @Query((returns) => [User])
   getUsers() {
     return USER_DATA;
+  }
+
+  @Mutation((returns) => User)
+
+  //   Creates a user in DB.
+  createUser(
+    @Args('email') email: string,
+    @Args('password') password: string,
+    @Args('name') name: string,
+    @Args('profilePhoto', { nullable: true }) profilePhoto: string,
+  ) {
+    const newUser = {
+      id: ++incrementalId,
+      email,
+      password,
+      name,
+      profilePhoto,
+    };
+
+    USER_DATA.push(newUser);
+
+    console.log(USER_DATA);
+
+    return newUser;
   }
 }

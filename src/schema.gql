@@ -24,3 +24,7 @@ type Query {
   getUsers: [User!]!
   getBlogsByUserId(userId: Int!): [Blog!]
 }
+
+type Mutation {
+  createUser(email: String!, password: String!, name: String!, profilePhoto: String): User!
+}

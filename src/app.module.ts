@@ -12,6 +12,6 @@ import { BlogResolver, UserResolver } from './graphql/resolvers';
     }),
   ],
   controllers: [],
-  providers: [UserResolver, BlogResolver], //Added Resolver here.
+  providers: [UserResolver, BlogResolver], //Add Resolvers here.
 })
 export class AppModule {}
