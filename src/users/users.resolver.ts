@@ -1,5 +1,5 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User } from '../models';
+import { User } from '../graphql/models';
 import { CreateUserDto } from '../dto/create-user.dto';
 
 const USER_DATA = [
@@ -88,7 +88,7 @@ const USER_DATA = [
 let incrementalId = 10;
 
 @Resolver()
-export class UserResolver {
+export class UsersResolver {
   // Returns a User by ID.
   @Query((returns) => User, { nullable: true }) // As it can return a null value when the user is not found.
   getUserById(@Args('id', { type: () => Int }) id: number) {

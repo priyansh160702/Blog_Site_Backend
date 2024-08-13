@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { User } from './graphql/models';
+import { UsersModule } from './users';
 
 @Module({
   imports: [
@@ -22,8 +23,9 @@ import { User } from './graphql/models';
       entities: [User], // TypeORM model.
       synchronize: true,
     }),
+    UsersModule,
   ],
   controllers: [],
-  providers: [UserResolver, BlogResolver], //Add Resolvers here.
+  providers: [],
 })
 export class AppModule {}
