@@ -1,5 +1,6 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User } from '../models';
+import { CreateUserDto } from '../dto/create-user.dto';
 
 const USER_DATA = [
   {
@@ -106,12 +107,9 @@ export class UserResolver {
   @Mutation((returns) => User)
 
   //   Creates a user in DB.
-  createUser(
-    @Args('email') email: string,
-    @Args('password') password: string,
-    @Args('name') name: string,
-    @Args('profilePhoto', { nullable: true }) profilePhoto: string,
-  ) {
+  createUser(@Args('userData') userData: CreateUserDto) {
+    const { email, password, name, profilePhoto } = userData;
+
     const newUser = {
       id: ++incrementalId,
       email,
