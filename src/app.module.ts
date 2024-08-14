@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { User } from './graphql/models/User.model';
 import { UsersModule } from './users/users.module';
 import { Blog } from './graphql/models/Blog.model';
+import { BlogsModule } from './blogs/blogs.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -24,6 +25,7 @@ import { Blog } from './graphql/models/Blog.model';
       synchronize: true,
     }),
     UsersModule,
+    BlogsModule,
   ],
   controllers: [],
   providers: [],
