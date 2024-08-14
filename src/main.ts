@@ -6,7 +6,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Registers pipes as global pipes
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, //Only accepts data according to the DTO.
+    }),
+  );
 
   await app.listen(8080);
 }
