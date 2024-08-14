@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ConfigModule } from '@nestjs/config';
 
 import { User } from './graphql/models/User.model';
 import { UsersModule } from './users/users.module';
 import { Blog } from './graphql/models/Blog.model';
 import { BlogsModule } from './blogs/blogs.module';
+
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -23,6 +25,9 @@ import { BlogsModule } from './blogs/blogs.module';
       database: 'blog_site',
       entities: [User, Blog], // TypeORM model.
       synchronize: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true, //// Makes ConfigModule available globally
     }),
     UsersModule,
     BlogsModule,
