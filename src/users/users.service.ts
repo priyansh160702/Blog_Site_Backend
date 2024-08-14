@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as argon from 'argon2';
@@ -39,8 +39,14 @@ export class UsersService {
   }
 
   // Find User by id
-  getUserById(id: number) {
-    return this.usersRepository.findOneBy({ id });
+  async getUserById(id: number) {
+    const user = await this.usersRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new NotFoundException('User not found!');
+    }
+
+    return user;
   }
   /*
   # Alternative

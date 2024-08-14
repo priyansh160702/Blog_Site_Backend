@@ -20,7 +20,7 @@ export class UsersResolver {
   }
 
   //Find User by id
-  @Query(() => User, { nullable: true })
+  @Query(() => User)
   getUserById(@Args('id', { type: () => Int }) id: number) {
     //type:Int for Graphql and id:number for TypeScript.
     return this.usersService.getUserById(id);
