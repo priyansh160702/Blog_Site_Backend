@@ -20,18 +20,29 @@ type User {
   blogs: [Blog!]
 }
 
+type LoginResponse {
+  message: String
+  token: String!
+}
+
 type Query {
   getUsers: [User!]!
   getUserById(id: Int!): User!
 }
 
 type Mutation {
-  createUser(userData: CreateUserDto!): User!
+  signup(signupData: SignupDataDto!): User!
+  login(loginData: LoginDataDto!): LoginResponse!
 }
 
-input CreateUserDto {
+input SignupDataDto {
   email: String!
   password: String!
   name: String!
   profilePhoto: String
+}
+
+input LoginDataDto {
+  email: String!
+  password: String!
 }
