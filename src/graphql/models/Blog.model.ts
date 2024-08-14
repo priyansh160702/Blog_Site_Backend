@@ -1,11 +1,5 @@
 import { Field, ObjectType, Int } from '@nestjs/graphql';
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './User.model';
 
 @Entity({ name: 'Blogs' })
@@ -19,13 +13,17 @@ export class Blog {
   @Field()
   title: string;
 
-  @Column()
-  @Field()
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   subTitle: string;
 
   @Column()
   @Field()
   category: string;
+
+  @Column()
+  @Field()
+  content: string;
 
   @Column({ nullable: true })
   @Field({ nullable: true })
