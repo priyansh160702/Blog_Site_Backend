@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Blog } from './Blog.model';
 
 //Will be using the same class for TypeOrm models. TypeORM will ignore other decorators.
 
@@ -26,5 +27,8 @@ export class User {
   @Field()
   password: string;
 
-  //  Removed blogs[] as it is not required.
+  // Establishing One-To-Many Relationship with Blog
+  @OneToMany(() => Blog, (blog) => blog.user)
+  @Field((type) => [Blog], { nullable: true })
+  blogs?: Blog[];
 }

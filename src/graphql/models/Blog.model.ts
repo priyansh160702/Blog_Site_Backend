@@ -1,5 +1,11 @@
 import { Field, ObjectType, Int } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './User.model';
 
 @Entity({ name: 'Blogs' })
@@ -24,4 +30,9 @@ export class Blog {
   @Column({ nullable: true })
   @Field({ nullable: true })
   image?: string;
+
+  // Establishing Many-To-One Relationship with User
+  @ManyToOne(() => User, (user) => user.blogs)
+  @Field(() => User)
+  user: User;
 }
