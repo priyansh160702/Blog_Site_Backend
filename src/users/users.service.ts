@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import * as argon from 'argon2';
 
 import { User } from 'src/graphql/models/User.model';
-import { CreateUserDto } from 'src/dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
