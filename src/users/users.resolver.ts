@@ -13,12 +13,6 @@ export class UsersResolver {
     return this.usersService.getUsers();
   }
 
-  //   Creates a user in DB.
-  @Mutation((returns) => User)
-  createUser(@Args('userData') userData: CreateUserDto) {
-    return this.usersService.createUser(userData);
-  }
-
   //Find User by id
   @Query(() => User)
   getUserById(@Args('id', { type: () => Int }) id: number) {

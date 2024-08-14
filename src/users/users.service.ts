@@ -22,22 +22,6 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  //   Create User
-  async createUser(userData: CreateUserDto) {
-    const { name, email, password, profilePhoto } = userData;
-
-    const hashedPassword = await argon.hash(password);
-
-    const newUser = this.usersRepository.create({
-      name,
-      email,
-      password: hashedPassword,
-      profilePhoto,
-    });
-
-    return this.usersRepository.save(newUser);
-  }
-
   // Find User by id
   async getUserById(id: number) {
     const user = await this.usersRepository.findOneBy({ id });
