@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { User } from './graphql/models/User.model';
 import { UsersModule } from './users/users.module';
-import { Blog } from './graphql/models/Blog.model';
 import { BlogsModule } from './blogs/blogs.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -15,22 +13,13 @@ import { BlogsModule } from './blogs/blogs.module';
       driver: ApolloDriver,
       autoSchemaFile: 'src/schema.gql', //Actual Graphql schema will be created here.
     }),
-    TypeOrmModule.forRoot({
-      //Server Config
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '12345678',
-      database: 'blog_site',
-      entities: [User, Blog], // TypeORM model.
-      synchronize: true,
-    }),
     ConfigModule.forRoot({
       isGlobal: true, //// Makes ConfigModule available globally
     }),
+
     UsersModule,
     BlogsModule,
+    DatabaseModule,
   ],
   controllers: [],
   providers: [],
