@@ -5,6 +5,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { User } from './graphql/models/User.model';
 import { UsersModule } from './users/users.module';
+import { Blog } from './graphql/models/Blog.model';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -19,7 +20,7 @@ import { UsersModule } from './users/users.module';
       username: 'postgres',
       password: '12345678',
       database: 'blog_site',
-      entities: [User], // TypeORM model.
+      entities: [User, Blog], // TypeORM model.
       synchronize: true,
     }),
     UsersModule,
