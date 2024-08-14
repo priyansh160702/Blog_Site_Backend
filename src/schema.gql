@@ -8,7 +8,7 @@ type Blog {
   subTitle: String!
   category: String!
   image: String
-  user_id: Int!
+  user: User!
 }
 
 type User {
@@ -17,12 +17,12 @@ type User {
   profilePhoto: String
   email: String!
   password: String!
+  blogs: [Blog!]
 }
 
 type Query {
-  getUserById(id: Int!): User
   getUsers: [User!]!
-  getBlogsByUserId(userId: Int!): [Blog!]
+  getUserById(id: Int!): User
 }
 
 type Mutation {

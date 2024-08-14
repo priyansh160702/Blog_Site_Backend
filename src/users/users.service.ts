@@ -27,4 +27,15 @@ export class UsersService {
 
     return this.usersRepository.save(newUser);
   }
+
+  // Find User by id
+  getUserById(id: number) {
+    return this.usersRepository.findOneBy({ id });
+  }
+  /*
+  # Alternative
+  getUserById(id: number) {
+    return this.usersRepository.findOne({ where: { id } });
+  }
+  */
 }
