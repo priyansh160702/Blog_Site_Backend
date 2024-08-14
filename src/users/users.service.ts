@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as argon from 'argon2';
 
 import { User } from 'src/graphql/models/User.model';
 import { CreateUserDto } from 'src/dto/create-user.dto';
@@ -22,8 +23,17 @@ export class UsersService {
   }
 
   //   Create User
-  createUser(userData: CreateUserDto) {
-    const newUser = this.usersRepository.create(userData);
+  async createUser(userData: CreateUserDto) {
+    const { name, email, password, profilePhoto } = userData;
+
+    const hashedPassword = await argon.hash(password);
+
+    const newUser = this.usersRepository.create({
+      name,
+      email,
+      password: hashedPassword,
+      profilePhoto,
+    });
 
     return this.usersRepository.save(newUser);
   }
