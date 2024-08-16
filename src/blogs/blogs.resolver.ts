@@ -4,6 +4,7 @@ import { Blog } from '../graphql/models/Blog.model';
 import { BlogsService } from './blogs.service';
 import { BlogDataDto } from 'src/dto/blogs/create-blog.dto';
 import { EditBlogDataDto } from 'src/dto/blogs/edit-blog.dto';
+import { DeleteBlogResponse } from 'src/graphql/models/DeleteBlogResponse.model';
 
 @Resolver()
 export class BlogsResolver {
@@ -22,5 +23,10 @@ export class BlogsResolver {
     @Args('editBlogData') editBlogData: EditBlogDataDto,
   ) {
     return this.blogsService.editBlog(blogId, editBlogData);
+  }
+
+  @Mutation(() => DeleteBlogResponse)
+  deleteBlog(@Args('blogId', { type: () => Int }) blogId: number) {
+    return this.blogsService.deleteBlog(blogId);
   }
 }
