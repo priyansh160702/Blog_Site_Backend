@@ -5,7 +5,7 @@
 type Blog {
   id: Int!
   title: String!
-  subTitle: String!
+  subTitle: String
   category: String!
   content: String!
   image: String
@@ -32,8 +32,18 @@ type Query {
 }
 
 type Mutation {
+  createBlog(blogData: BlogDataDto!): Blog!
   signup(signupData: SignupDataDto!): User!
   login(loginData: LoginDataDto!): LoginResponse!
+}
+
+input BlogDataDto {
+  title: String!
+  subTitle: String
+  category: String!
+  content: String!
+  image: String
+  userId: Float!
 }
 
 input SignupDataDto {
