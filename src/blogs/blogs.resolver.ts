@@ -36,4 +36,10 @@ export class BlogsResolver {
   getBlogById(@Args('blogId', { type: () => Int }) blogId: number) {
     return this.blogsService.getBlogById(blogId);
   }
+
+  // Get Blogs by UserId
+  @Query(() => [Blog])
+  getBlogsByUserId(@Args('userId', { type: () => Int }) userId: number) {
+    return this.blogsService.getBlogsByUserId(userId);
+  }
 }

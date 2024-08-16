@@ -67,4 +67,17 @@ export class BlogsService {
 
     return blog;
   }
+
+  // Get Blogs by UserId
+  async getBlogsByUserId(userId: number) {
+    const user = await this.usersRepository.findOneBy({ id: userId });
+
+    if (!user) {
+      throw new NotFoundException('User not found!');
+    }
+
+    return this.blogsRepository.find({
+      where: { user: { id: userId } },
+    });
+  }
 }

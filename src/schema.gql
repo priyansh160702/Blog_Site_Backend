@@ -34,6 +34,7 @@ type Query {
   getUsers: [User!]!
   getUserById(id: Int!): User!
   getBlogById(blogId: Int!): Blog!
+  getBlogsByUserId(userId: Int!): [Blog!]!
 }
 
 type Mutation {
