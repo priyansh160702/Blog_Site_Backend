@@ -1,4 +1,6 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { Blog } from '../graphql/models/Blog.model';
 import { BlogsService } from './blogs.service';
@@ -11,6 +13,7 @@ export class BlogsResolver {
   constructor(private blogsService: BlogsService) {}
 
   // Create Blog
+  @UseGuards(AuthGuard('jwt')) //Route protection Guard
   @Mutation(() => Blog)
   createBlog(@Args('blogData') blogData: BlogDataDto) {
     return this.blogsService.createBlog(blogData);
