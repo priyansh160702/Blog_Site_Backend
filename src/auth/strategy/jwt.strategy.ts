@@ -24,6 +24,14 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     //The token is transformed to the payload that we provided.
     //We can transform or use the payload as we like, for example to extract the user id.
 
-    return payload; // Whatever we return here, it is attatched to the Request object of Express.js as the "user" key.  (req.user)
+    const userId = payload.sub;
+
+    return userId; // Whatever we return here, it is attatched to the Request object of Express.js as the "user" key.  (req.user).
+
+    /*Since we are using GraphQl, the request object will be:-
+        @Context() context:any
+
+        context.req
+    */
   }
 }

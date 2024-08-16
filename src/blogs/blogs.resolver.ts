@@ -1,6 +1,7 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Req, UseGuards } from '@nestjs/common';
 
+import { Request } from 'express';
 import { Blog } from '../graphql/models/Blog.model';
 import { BlogsService } from './blogs.service';
 import { BlogDataDto } from 'src/dto/blogs/create-blog.dto';
@@ -46,7 +47,9 @@ export class BlogsResolver {
   // Get Blogs by UserId
   @UseGuards(JwtGuard) //Route protection Guard
   @Query(() => [Blog])
-  getBlogsByUserId(@Args('userId', { type: () => Int }) userId: number) {
+  getBlogsByUserId(@Context() context: any) {
+    const userId = context.req.user;
+
     return this.blogsService.getBlogsByUserId(userId);
   }
 }
