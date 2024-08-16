@@ -7,7 +7,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+  //jwt is the key for identifying this startegy by the guard function.
   constructor(private configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Extracts the token from the Authorization Header. The Header data should be in the form - Bearer token.
@@ -15,5 +16,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       ignoreExpiration: false,
       secretOrKey: configService.get('JWT_SECRET'),
     });
+  }
+
+  validate(payload: any) {
+    //This function name is NOT custom.
+
+    //The token is transformed to the payload that we provided.
+    //We can transform or use the payload as we like, for example to extract the user id.
+
+    return payload; // Whatever we return here, it is attatched to the Request object of Express.js as the "user" key.  (req.user)
   }
 }
