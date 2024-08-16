@@ -2,6 +2,8 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as argon from 'argon2';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 import { User } from 'src/graphql/models/User.model';
 import { LoginDataDto } from 'src/dto/auth/login-data.dto';
@@ -11,9 +13,11 @@ import { SignupDataDto } from 'src/dto/auth/signup-data.dto';
 export class AuthService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
+    private jwt: JwtService,
+    private configService: ConfigService,
   ) {}
 
-  //   Create User
+  // Singup
   async signup(signupData: SignupDataDto) {
     const { name, email, password, profilePhoto } = signupData;
 
@@ -29,6 +33,7 @@ export class AuthService {
     return this.usersRepository.save(newUser);
   }
 
+  // Login
   async login(loginData: LoginDataDto) {
     const { email, password } = loginData;
 
@@ -38,17 +43,30 @@ export class AuthService {
       throw new ForbiddenException('Credentials Incorrect!');
     }
 
-    console.log(user.password);
-
     const pwIsEqual = await argon.verify(user.password, password);
 
     if (!pwIsEqual) {
       throw new ForbiddenException('Credentials Incorrect!');
     }
 
+    const token = await this.signToken(user.id, user.email);
+
     return {
       message: 'Logged in successfully!',
-      token: 'Token',
+      token,
     };
+  }
+
+  // Sign Token with JWT
+  signToken(userId: number, email: string) {
+    const payload = {
+      sub: userId, //'sub' is a naming convention.
+      email,
+    };
+
+    return this.jwt.signAsync(payload, {
+      expiresIn: '1h',
+      secret: this.configService.get('JWT_SECRET'),
+    });
   }
 }
