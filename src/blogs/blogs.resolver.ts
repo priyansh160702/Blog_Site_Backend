@@ -1,4 +1,4 @@
-import { Args, Int, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { Blog } from '../graphql/models/Blog.model';
 import { BlogsService } from './blogs.service';
@@ -25,8 +25,15 @@ export class BlogsResolver {
     return this.blogsService.editBlog(blogId, editBlogData);
   }
 
+  // Delete Blog
   @Mutation(() => DeleteBlogResponse)
   deleteBlog(@Args('blogId', { type: () => Int }) blogId: number) {
     return this.blogsService.deleteBlog(blogId);
+  }
+
+  // Get blog by id
+  @Query(() => Blog)
+  getBlogById(@Args('blogId', { type: () => Int }) blogId: number) {
+    return this.blogsService.getBlogById(blogId);
   }
 }

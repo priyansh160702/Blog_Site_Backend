@@ -33,6 +33,7 @@ type LoginResponse {
 type Query {
   getUsers: [User!]!
   getUserById(id: Int!): User!
+  getBlogById(blogId: Int!): Blog!
 }
 
 type Mutation {
