@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import * as argon from 'argon2';
 
 import { User } from 'src/graphql/models/User.model';
-import { LoginDataDto } from 'src/dto/login-data.dto';
-import { SignupDataDto } from 'src/dto/signup-data.dto';
+import { LoginDataDto } from 'src/dto/auth/login-data.dto';
+import { SignupDataDto } from 'src/dto/auth/signup-data.dto';
 
 @Injectable()
 export class AuthService {

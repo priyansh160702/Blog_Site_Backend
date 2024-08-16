@@ -2,8 +2,8 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 
 import { AuthService } from './auth.service';
 import { LoginResponse } from 'src/graphql/models/LoginResponse.model';
-import { LoginDataDto } from 'src/dto/login-data.dto';
-import { SignupDataDto } from 'src/dto/signup-data.dto';
+import { LoginDataDto } from 'src/dto/auth/login-data.dto';
+import { SignupDataDto } from 'src/dto/auth/signup-data.dto';
 import { User } from 'src/graphql/models/User.model';
 
 @Resolver()
