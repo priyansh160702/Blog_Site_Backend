@@ -1,7 +1,8 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
+
 import { Blog } from '../graphql/models/Blog.model';
 import { BlogsService } from './blogs.service';
-import { BlogDataDto } from 'src/dto/blogs/blog-data.dto';
+import { BlogDataDto } from 'src/dto/blogs/create-blog.dto';
 
 @Resolver()
 export class BlogsResolver {

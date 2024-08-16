@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BlogDataDto } from 'src/dto/blogs/blog-data.dto';
+import { BlogDataDto } from 'src/dto/blogs/create-blog.dto';
 import { Blog } from 'src/graphql/models/Blog.model';
 import { User } from 'src/graphql/models/User.model';
 import { Repository } from 'typeorm';
@@ -12,6 +12,7 @@ export class BlogsService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
+  // Create Blog
   async createBlog(blogData: BlogDataDto) {
     const { userId, ...blogDataWithoutUserId } = blogData;
 
