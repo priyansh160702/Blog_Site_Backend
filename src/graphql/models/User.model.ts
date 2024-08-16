@@ -24,7 +24,7 @@ export class User {
   email: string;
 
   @Column()
-  @Field()
+  // @Field()
   password: string;
 
   // Establishing One-To-Many Relationship with Blog
