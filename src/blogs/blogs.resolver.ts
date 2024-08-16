@@ -20,6 +20,7 @@ export class BlogsResolver {
   }
 
   // Edit Blog
+  @UseGuards(JwtGuard) //Route protection Guard
   @Mutation(() => Blog)
   editBlog(
     @Args('blogId', { type: () => Int }) blogId: number,
@@ -29,18 +30,21 @@ export class BlogsResolver {
   }
 
   // Delete Blog
+  @UseGuards(JwtGuard) //Route protection Guard
   @Mutation(() => DeleteBlogResponse)
   deleteBlog(@Args('blogId', { type: () => Int }) blogId: number) {
     return this.blogsService.deleteBlog(blogId);
   }
 
   // Get blog by id
+  @UseGuards(JwtGuard) //Route protection Guard
   @Query(() => Blog)
   getBlogById(@Args('blogId', { type: () => Int }) blogId: number) {
     return this.blogsService.getBlogById(blogId);
   }
 
   // Get Blogs by UserId
+  @UseGuards(JwtGuard) //Route protection Guard
   @Query(() => [Blog])
   getBlogsByUserId(@Args('userId', { type: () => Int }) userId: number) {
     return this.blogsService.getBlogsByUserId(userId);
