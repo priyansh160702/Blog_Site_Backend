@@ -1,4 +1,4 @@
-import { Args, Int, Query, Resolver } from '@nestjs/graphql';
+import { Context, Query, Resolver } from '@nestjs/graphql';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
 import { User } from 'src/graphql/models/User.model';
@@ -18,8 +18,8 @@ export class UsersResolver {
   //Find User by id
   @UseGuards(JwtGuard)
   @Query(() => User)
-  getUserById(@Args('id', { type: () => Int }) id: number) {
-    //type:Int for Graphql and id:number for TypeScript.
-    return this.usersService.getUserById(id);
+  getUser(@Context() context: any) {
+    const userId = context.req.user;
+    return this.usersService.getUserById(userId);
   }
 }
