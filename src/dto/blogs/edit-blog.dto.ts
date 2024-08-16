@@ -1,19 +1,14 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  Length,
-} from 'class-validator';
+import { Field, InputType } from '@nestjs/graphql';
+import { IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 
 const errorMessage = (field: string) => {
-  return `${field} Field should not be empty!`;
+  return `Length of ${field} cannot be 0!`;
 };
 
 @InputType()
-export class BlogDataDto {
-  @Field()
+export class EditBlogDataDto {
+  @Field({ nullable: true })
+  @IsOptional()
   @IsString()
   @IsNotEmpty({ message: errorMessage('Title') })
   title: string;
@@ -21,15 +16,17 @@ export class BlogDataDto {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
+  @IsNotEmpty({ message: errorMessage('subTitle') })
   subTitle: string;
 
-  @Field()
-  @IsString()
+  @Field({ nullable: true })
   @IsOptional()
+  @IsString()
   @IsNotEmpty({ message: errorMessage('Category') })
   category: string;
 
-  @Field()
+  @Field({ nullable: true })
+  @IsOptional()
   @IsString()
   @IsNotEmpty({ message: errorMessage('Content') })
   @Length(10)
@@ -39,9 +36,4 @@ export class BlogDataDto {
   @IsOptional()
   @IsString()
   image: string;
-
-  @Field(() => Int)
-  @IsNumber()
-  @IsNotEmpty({ message: errorMessage('userId') })
-  userId: number;
 }

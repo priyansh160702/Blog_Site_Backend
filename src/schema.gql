@@ -33,6 +33,7 @@ type Query {
 
 type Mutation {
   createBlog(blogData: BlogDataDto!): Blog!
+  editBlog(blogId: Int!, editBlogData: EditBlogDataDto!): Blog!
   signup(signupData: SignupDataDto!): User!
   login(loginData: LoginDataDto!): LoginResponse!
 }
@@ -43,7 +44,15 @@ input BlogDataDto {
   category: String!
   content: String!
   image: String
-  userId: Float!
+  userId: Int!
+}
+
+input EditBlogDataDto {
+  title: String
+  subTitle: String
+  category: String
+  content: String
+  image: String
 }
 
 input SignupDataDto {
