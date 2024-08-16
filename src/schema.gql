@@ -21,6 +21,10 @@ type User {
   blogs: [Blog!]
 }
 
+type DeleteBlogResponse {
+  message: String!
+}
+
 type LoginResponse {
   message: String
   token: String!
@@ -34,6 +38,7 @@ type Query {
 type Mutation {
   createBlog(blogData: BlogDataDto!): Blog!
   editBlog(blogId: Int!, editBlogData: EditBlogDataDto!): Blog!
+  deleteBlog(blogId: Int!): DeleteBlogResponse!
   signup(signupData: SignupDataDto!): User!
   login(loginData: LoginDataDto!): LoginResponse!
 }

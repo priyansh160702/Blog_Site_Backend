@@ -43,4 +43,17 @@ export class BlogsService {
 
     return this.blogsRepository.findOneBy({ id: blogId });
   }
+
+  // Delete Blog
+  async deleteBlog(blogId: number) {
+    const blog = await this.blogsRepository.findOneBy({ id: blogId });
+
+    if (!blog) {
+      throw new NotFoundException('Blog not found!');
+    }
+
+    await this.blogsRepository.remove(blog);
+
+    return { message: 'Blog deleted successfully!' };
+  }
 }
