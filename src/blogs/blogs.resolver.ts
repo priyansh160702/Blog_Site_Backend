@@ -6,7 +6,7 @@ import { Blog } from '../graphql/models/Blog.model';
 import { BlogsService } from './blogs.service';
 import { BlogDataDto } from 'src/dto/blogs/create-blog.dto';
 import { EditBlogDataDto } from 'src/dto/blogs/edit-blog.dto';
-import { DeleteBlogResponse } from 'src/graphql/models/DeleteBlogResponse.model';
+import { ObjectTypeResponse } from 'src/graphql/models/ObjectTypeResponse.model';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
 @Resolver()
@@ -32,7 +32,7 @@ export class BlogsResolver {
 
   // Delete Blog
   @UseGuards(JwtGuard) //Route protection Guard
-  @Mutation(() => DeleteBlogResponse)
+  @Mutation(() => ObjectTypeResponse)
   deleteBlog(@Args('blogId', { type: () => Int }) blogId: number) {
     return this.blogsService.deleteBlog(blogId);
   }
