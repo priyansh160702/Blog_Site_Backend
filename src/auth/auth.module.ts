@@ -6,10 +6,17 @@ import { AuthService } from './auth.service';
 import { AuthResolver } from './auth.resolver';
 import { User } from 'src/graphql/models/User.model';
 import { JwtStrategy } from './strategy/jwt.strategy';
+import { ResetPasswordStrategy } from './strategy/reset-password.strategy';
 import { MailerService } from 'src/mailer/mailer.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), JwtModule.register({})],
-  providers: [AuthService, AuthResolver, JwtStrategy, MailerService],
+  providers: [
+    AuthService,
+    AuthResolver,
+    JwtStrategy,
+    ResetPasswordStrategy,
+    MailerService,
+  ],
 })
 export class AuthModule {}
