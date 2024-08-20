@@ -39,9 +39,10 @@ type Query {
 type Mutation {
   createBlog(blogData: BlogDataDto!): Blog!
   editBlog(blogId: Int!, editBlogData: EditBlogDataDto!): Blog!
-  deleteBlog(blogId: Int!): DeleteBlogResponse!
+  deleteBlog(blogId: Int!): ObjectTypeResponse!
   signup(signupData: SignupDataDto!): User!
   login(loginData: LoginDataDto!): LoginResponse!
+  forgotPassword(userMail: String!): ObjectTypeResponse!
 }
 
 input BlogDataDto {

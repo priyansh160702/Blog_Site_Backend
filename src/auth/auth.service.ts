@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as argon from 'argon2';
@@ -8,6 +12,7 @@ import { ConfigService } from '@nestjs/config';
 import { User } from 'src/graphql/models/User.model';
 import { LoginDataDto } from 'src/dto/auth/login-data.dto';
 import { SignupDataDto } from 'src/dto/auth/signup-data.dto';
+import { MailerService } from 'src/mailer/mailer.service';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +20,7 @@ export class AuthService {
     @InjectRepository(User) private usersRepository: Repository<User>,
     private jwt: JwtService,
     private configService: ConfigService,
+    private mailerService: MailerService,
   ) {}
 
   // Singup
@@ -49,12 +55,34 @@ export class AuthService {
       throw new ForbiddenException('Credentials Incorrect!');
     }
 
-    const token = await this.signToken(user.id, user.email);
+    const token = await this.signToken(user.id, user.email, 'JWT_LOGIN_SECRET');
 
     return {
       message: 'Logged in successfully!',
       token,
     };
+  }
+
+  /* Reset Password Functionality */
+  // Forgot Password
+  async forgotPassword(userMail: string) {
+    const user = await this.usersRepository.findOneBy({ email: userMail });
+
+    if (!user) {
+      throw new NotFoundException('User not found!');
+    }
+
+    // Sign Token
+    const token = await this.signToken(
+      user.id,
+      user.email,
+      'JWT_RESET_PASSWORD_TOKEN',
+    );
+
+    // Sending mail
+    await this.mailerService.sendEmail(userMail, token);
+
+    return { message: 'Email sent successfully!' };
   }
 
   // Sign Token with JWT

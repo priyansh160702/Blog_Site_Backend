@@ -5,6 +5,7 @@ import { LoginResponse } from 'src/graphql/models/LoginResponse.model';
 import { LoginDataDto } from 'src/dto/auth/login-data.dto';
 import { SignupDataDto } from 'src/dto/auth/signup-data.dto';
 import { User } from 'src/graphql/models/User.model';
+import { ObjectTypeResponse } from 'src/graphql/models/ObjectTypeResponse.model';
 
 @Resolver()
 export class AuthResolver {
@@ -20,5 +21,20 @@ export class AuthResolver {
   @Mutation(() => LoginResponse)
   login(@Args('loginData') loginData: LoginDataDto) {
     return this.authService.login(loginData);
+  }
+
+  /* Reset Password Functionality */
+  // Forgot Password
+  /*
+    User will click the "Forgot Password" button and will be required to enter his/her registered email.
+  */
+
+  @Mutation(() => ObjectTypeResponse)
+  async forgotPassword(@Args('userMail') userMail: string) {
+    try {
+      return await this.authService.forgotPassword(userMail);
+    } catch (err) {
+      return { message: err };
+    }
   }
 }
