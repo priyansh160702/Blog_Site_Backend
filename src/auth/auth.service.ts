@@ -58,7 +58,7 @@ export class AuthService {
   }
 
   // Sign Token with JWT
-  signToken(userId: number, email: string) {
+  signToken(userId: number, email: string, jwtSecret: string) {
     const payload = {
       sub: userId, //'sub' is a naming convention.
       email,
@@ -66,7 +66,7 @@ export class AuthService {
 
     return this.jwt.signAsync(payload, {
       expiresIn: '1h',
-      secret: this.configService.get('JWT_SECRET'),
+      secret: this.configService.get(jwtSecret),
     });
   }
 }
