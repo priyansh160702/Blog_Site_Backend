@@ -1,4 +1,5 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { LoginResponse } from 'src/graphql/models/LoginResponse.model';
@@ -6,6 +7,8 @@ import { LoginDataDto } from 'src/dto/auth/login-data.dto';
 import { SignupDataDto } from 'src/dto/auth/signup-data.dto';
 import { User } from 'src/graphql/models/User.model';
 import { ObjectTypeResponse } from 'src/graphql/models/ObjectTypeResponse.model';
+import { ResetPasswordDto } from 'src/dto/auth/reset-password-data.dto';
+import { ResetPasswordGuard } from './guards/reset-password.guard';
 
 @Resolver()
 export class AuthResolver {
@@ -36,5 +39,20 @@ export class AuthResolver {
     } catch (err) {
       return { message: err };
     }
+  }
+
+  // Reset Password
+  /*
+    User will enter the new password.
+  */
+  @UseGuards(ResetPasswordGuard)
+  @Mutation(() => ObjectTypeResponse)
+  resetPassword(
+    @Context() context: any,
+    @Args('resetPasswordData') resetPasswordData: ResetPasswordDto,
+  ) {
+    const userId = context.req.user;
+
+    return this.authService.resetPassword(userId, resetPasswordData);
   }
 }
