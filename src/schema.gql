@@ -43,6 +43,7 @@ type Mutation {
   signup(signupData: SignupDataDto!): User!
   login(loginData: LoginDataDto!): LoginResponse!
   forgotPassword(userMail: String!): ObjectTypeResponse!
+  resetPassword(resetPasswordData: ResetPasswordDto!): ObjectTypeResponse!
 }
 
 input BlogDataDto {
@@ -72,4 +73,9 @@ input SignupDataDto {
 input LoginDataDto {
   email: String!
   password: String!
+}
+
+input ResetPasswordDto {
+  newPassword: String!
+  confirmPassword: String!
 }
