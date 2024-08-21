@@ -9,6 +9,7 @@ import { BlogsModule } from './blogs/blogs.module';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { MailerModule } from './mailer/mailer.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { MailerModule } from './mailer/mailer.module';
     DatabaseModule,
     AuthModule,
     MailerModule,
+    FileUploadModule,
   ],
   controllers: [],
   providers: [],
