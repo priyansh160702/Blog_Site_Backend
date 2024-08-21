@@ -5,6 +5,7 @@ import { join } from 'path';
 
 import { User } from 'src/graphql/models/User.model';
 import { Blog } from 'src/graphql/models/Blog.model';
+import { deleteFile } from './util';
 
 @Injectable()
 export class FileUploadService {
@@ -20,8 +21,16 @@ export class FileUploadService {
       throw new NotFoundException(`User with id:${userId} not found!`);
     }
 
+    // Delete Photo from File system if photo uploaded again.
+    const previousPhotoPath = user.profilePhoto;
+
+    if (previousPhotoPath) {
+      deleteFile(previousPhotoPath);
+    }
+
     const profilePhotoPath = join('public', filePath.split('public')[1]);
 
+    // Add/Update Photo path to user
     user.profilePhoto = profilePhotoPath;
 
     this.usersRepository.save(user);
