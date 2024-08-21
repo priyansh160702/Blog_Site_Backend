@@ -30,9 +30,16 @@ import { FileUploadModule } from './file-upload/file-upload.module';
       },
     }),
 
-    // Serving folder statically
+    // Serving public/users folder statically
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(__dirname, '..', 'public', 'users'),
+      serveRoot: '/users',
+    }),
+
+    // Serving public/blogs folder statically
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public', 'blogs'),
+      serveRoot: '/blogs',
     }),
 
     UsersModule,
