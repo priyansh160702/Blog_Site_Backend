@@ -3,6 +3,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 import { UsersModule } from './users/users.module';
 import { BlogsModule } from './blogs/blogs.module';
@@ -26,6 +28,11 @@ import { FileUploadModule } from './file-upload/file-upload.module';
       limits: {
         fieldSize: 1000 * 1000 * 10,
       },
+    }),
+
+    // Serving folder statically
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
     }),
 
     UsersModule,
