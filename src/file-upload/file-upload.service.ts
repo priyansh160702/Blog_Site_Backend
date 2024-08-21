@@ -28,7 +28,10 @@ export class FileUploadService {
       deleteFile(previousPhotoPath);
     }
 
-    const profilePhotoPath = join('public', filePath.split('public')[1]);
+    const profilePhotoPath = filePath
+      .split('public')[1]
+      .replace(/^\\/, '')
+      .replace(/\\/g, '/');
 
     // Add/Update Photo path to user
     user.profilePhoto = profilePhotoPath;
