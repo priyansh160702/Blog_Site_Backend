@@ -14,6 +14,7 @@ export class FileUploadService {
     @InjectRepository(Blog) private blogsRepository: Repository<Blog>,
   ) {}
 
+  // User
   async userProfilePhotoUpload(userId, filePath: string) {
     const user = await this.usersRepository.findOneBy({ id: userId });
 
@@ -37,5 +38,29 @@ export class FileUploadService {
     user.profilePhoto = profilePhotoPath;
 
     this.usersRepository.save(user);
+  }
+
+  async blogImageUpload(blogId: number, filePath: string) {
+    const blog = await this.blogsRepository.findOneBy({ id: blogId });
+
+    if (!blog) {
+      throw new NotFoundException(`Blog with id:${blogId} not found!`);
+    }
+
+    // Delete old image
+    const previousPhotoPath = blog.image;
+
+    if (previousPhotoPath) {
+      deleteFile(previousPhotoPath);
+    }
+
+    const blogImagePath = filePath
+      .split('public')[1]
+      .replace(/^\\/, '')
+      .replace(/\\/g, '/');
+
+    blog.image = blogImagePath;
+
+    this.blogsRepository.save(blog);
   }
 }
