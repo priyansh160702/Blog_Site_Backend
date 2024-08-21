@@ -13,6 +13,12 @@ import { JwtGuard } from 'src/auth/guards/jwt.guard';
 export class BlogsResolver {
   constructor(private blogsService: BlogsService) {}
 
+  // Get all blogs
+  @Query(() => [Blog])
+  getBlogs() {
+    return this.blogsService.getBlogs();
+  }
+
   // Create Blog
   @UseGuards(JwtGuard) //Route protection Guard
   @Mutation(() => Blog)

@@ -36,6 +36,7 @@ type LoginResponse {
 type Query {
   getUsers: [User!]!
   getUser: User!
+  getBlogs: [Blog!]!
   getBlogById(blogId: Int!): Blog!
   getBlogsByUserId: [Blog!]!
 }

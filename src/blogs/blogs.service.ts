@@ -13,6 +13,11 @@ export class BlogsService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
+  // Get all blogs
+  getBlogs() {
+    return this.blogsRepository.find();
+  }
+
   // Create Blog
   async createBlog(blogData: BlogDataDto) {
     const { userId, ...blogDataWithoutUserId } = blogData;
