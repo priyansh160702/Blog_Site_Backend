@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -27,6 +28,12 @@ export class AuthService {
   // Singup
   async signup(signupData: SignupDataDto) {
     const { name, email, password, profilePhoto } = signupData;
+
+    const user = await this.usersRepository.findOneBy({ email });
+
+    if (user) {
+      throw new ConflictException('User already exists!');
+    }
 
     const hashedPassword = await argon.hash(password);
 
