@@ -1,5 +1,12 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Blog } from './Blog.model';
 
 //Will be using the same class for TypeOrm models. TypeORM will ignore other decorators.
@@ -26,6 +33,15 @@ export class User {
   @Column()
   // @Field()
   password: string;
+
+  //Timestamps
+  @CreateDateColumn({ type: 'timestamptz' })
+  @Field(() => String)
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  @Field(() => String)
+  updatedAt: Date;
 
   // Establishing One-To-Many Relationship with Blog
   @OneToMany(() => Blog, (blog) => blog.user)

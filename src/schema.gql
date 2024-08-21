@@ -9,6 +9,8 @@ type Blog {
   category: String!
   content: String!
   image: String
+  createdAt: String!
+  updatedAt: String!
   user: User!
 }
 
@@ -17,6 +19,8 @@ type User {
   name: String!
   profilePhoto: String
   email: String!
+  createdAt: String!
+  updatedAt: String!
   blogs: [Blog!]
 }
 
