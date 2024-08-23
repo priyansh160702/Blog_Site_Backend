@@ -44,7 +44,7 @@ export class BlogsResolver {
   }
 
   // Get blog by id
-  @UseGuards(JwtGuard) //Route protection Guard
+  // @UseGuards(JwtGuard) //Route protection Guard
   @Query(() => Blog)
   getBlogById(@Args('blogId', { type: () => Int }) blogId: number) {
     return this.blogsService.getBlogById(blogId);

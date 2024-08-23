@@ -64,7 +64,10 @@ export class BlogsService {
 
   // Get Blog by Id
   async getBlogById(blogId: number) {
-    const blog = await this.blogsRepository.findOneBy({ id: blogId });
+    const blog = await this.blogsRepository.findOne({
+      where: { id: blogId },
+      relations: ['user'],
+    });
 
     if (!blog) {
       throw new NotFoundException('Blog not found!');
