@@ -22,8 +22,10 @@ export class BlogsResolver {
   // Create Blog
   @UseGuards(JwtGuard) //Route protection Guard
   @Mutation(() => Blog)
-  createBlog(@Args('blogData') blogData: BlogDataDto) {
-    return this.blogsService.createBlog(blogData);
+  createBlog(@Context() { req }: any, @Args('blogData') blogData: BlogDataDto) {
+    const userId = req.user;
+
+    return this.blogsService.createBlog(userId, blogData);
   }
 
   // Edit Blog

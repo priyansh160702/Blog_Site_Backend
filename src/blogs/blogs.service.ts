@@ -19,9 +19,7 @@ export class BlogsService {
   }
 
   // Create Blog
-  async createBlog(blogData: BlogDataDto) {
-    const { userId, ...blogDataWithoutUserId } = blogData;
-
+  async createBlog(userId, blogData: BlogDataDto) {
     const user = await this.usersRepository.findOneBy({ id: userId });
 
     if (!user) {
@@ -29,7 +27,7 @@ export class BlogsService {
     }
 
     const newBlog = this.blogsRepository.create({
-      ...blogDataWithoutUserId,
+      ...blogData,
       user,
     });
 

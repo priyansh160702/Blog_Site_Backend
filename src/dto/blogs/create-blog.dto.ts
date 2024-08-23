@@ -40,8 +40,8 @@ export class BlogDataDto {
   @IsString()
   image: string;
 
-  @Field(() => Int)
-  @IsNumber()
-  @IsNotEmpty({ message: errorMessage('userId') })
-  userId: number;
+  // @Field(() => Int)
+  // @IsNumber()
+  // @IsNotEmpty({ message: errorMessage('userId') })
+  // userId: number;
 }
