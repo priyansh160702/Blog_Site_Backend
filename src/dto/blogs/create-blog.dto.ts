@@ -1,7 +1,7 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 import {
+  IsIn,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -10,6 +10,15 @@ import {
 const errorMessage = (field: string) => {
   return `${field} Field should not be empty!`;
 };
+
+// Allowed categories
+const allowedCategories = [
+  'Technology',
+  'Health',
+  'Lifestyle',
+  'Education',
+  'Travel',
+];
 
 @InputType()
 export class BlogDataDto {
@@ -27,6 +36,9 @@ export class BlogDataDto {
   @IsString()
   @IsOptional()
   @IsNotEmpty({ message: errorMessage('Category') })
+  @IsIn(allowedCategories, {
+    message: 'Not a valid category!',
+  })
   category: string;
 
   @Field()
