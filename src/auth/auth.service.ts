@@ -88,13 +88,13 @@ export class AuthService {
     );
 
     // Sending mail
-    const url = 'https://www.google.com';
+    const url = this.configService.get('CLIENT_URL');
 
     const subject = 'Reset Password';
 
     const html = `        
             <h1>Reset Password</h1>
-            <p>Click on the <a href=${url}/${token}>${token}</a> to reset your password.</p>
+            <p>Click on the <a href=${url}/reset-password/${token}>Link</a> to reset your password.</p>
     `;
 
     await this.mailerService.sendEmail(userMail, subject, html);
@@ -120,11 +120,13 @@ export class AuthService {
 
     // Sending confirmation mail
 
+    const url = this.configService.get('CLIENT_URL');
+
     const subject = 'Password reset successfull';
 
     const html = `
       <h1>Your password has been reset successfully!</h1>
-      <a>Login</a> to your account.
+      <a href=${url}/login>Login</a> to your account.
     `;
 
     await this.mailerService.sendEmail(user.email, subject, html);
