@@ -16,7 +16,6 @@ export class EditBlogDataDto {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
-  @IsNotEmpty({ message: errorMessage('subTitle') })
   subTitle: string;
 
   @Field({ nullable: true })
