@@ -6,6 +6,8 @@ import { Blog } from 'src/graphql/models/Blog.model';
 import { User } from 'src/graphql/models/User.model';
 import { Repository } from 'typeorm';
 
+import { deleteFile } from 'src/file-upload/util';
+
 @Injectable()
 export class BlogsService {
   constructor(
@@ -53,6 +55,13 @@ export class BlogsService {
 
     if (!blog) {
       throw new NotFoundException('Blog not found!');
+    }
+
+    // Delete old image
+    const previousPhotoPath = blog.image;
+
+    if (previousPhotoPath) {
+      deleteFile(previousPhotoPath);
     }
 
     await this.blogsRepository.remove(blog);
